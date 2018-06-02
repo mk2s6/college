@@ -1,0 +1,20 @@
+{{> header }}
+
+	<div id="main_body">
+		<div class="main_content">
+
+			<h1>{{title}}</h1>
+			<div id="loginContent">	
+				<form method="POST" action="/login">
+					<label for="username"></label>Enter id : <input type="text" name="username">
+	                <label for="password"> Enter PassWord : </label><input type="password" name="password" autocomplete="off"> 
+			         
+			          <button type="submit" id="submitBtn">Login</button>
+				</form>
+			</div>
+			
+		</div>
+	</div>
+
+
+{{> footer-end }}

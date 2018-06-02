@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SKIT</title>
+			<base href="/">
+			<link type="text/css" rel="stylesheet" href="css/style.css">
+			<link href="https://fonts.googleapis.com/css?family=Acme|Permanent+Marker|Rancho" rel="stylesheet">
+			<script type="text/javascript" src="assets/jq.js"></script>
+			<script type="text/javascript" src="assets/mustache.js"></script>
+	</head>
+	<body>
+		<nav id="nav_bar">
+			<div class="nav_left">
+				<h1><a href="/">SKIT</a></h1>
+			</div>
+			<div class="nav_right">		
+			    <ul>
+
+			    	{{#if isAuthenticated}}
+
+				     	<li><a href="/profile/users/{{username}}">Profile</a></li>
+				     	<li><a href="/logout">Sign Out</a></li>
+
+			    	{{else}}
+
+				        <li><a href="/login">Sign In</a></li>
+				     	<li><a href="/register">Sign Up</a></li>
+
+			    	{{/if}}
+			    </ul>
+			</div>
+		</nav>
+
+
+		<div id="sidebar">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/about">About Skit</a></li>
+				<li><a href="/administration">Administration</a></li>
+				<li><a href="/academics">Academics</a></li>
+				<li><a href="/infrastructure">Infrastructure</a></li>
+				<li><a href="/contact">Contact Us</a></li>
+			</ul>
+		</div>
