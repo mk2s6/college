@@ -4,30 +4,28 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 var config = {
 	mode : 'development',
-	// entry : {
-	// 	app : './app.js'
-	// },
+	entry : {
+		style : './public/js/styling.js'
+	},
 	watch : true,
-	// output : {
-	// 	path : path.resolve(__dirname , 'dist'),
-	// 	filename : '[name].bundle.js',
-	// },
+	output : {
+		path : path.resolve(__dirname , 'dist'),
+		filename : '[name].bundle.js',
+	},
 	module : {
 		rules : [
 			{
-				test : /\.css$/,
-				loader : 'style-loader!css-loader'
+				test : /\.scss$/,
+				use: [
+	                {loader : "style-loader"}, // creates style nodes from JS strings
+	                {loader : "css-loader"}, // translates CSS into CommonJS
+	                {loader : "sass-loader", // compiles Sass to CSS
+		            	options: {
+		   					 includePaths: ['./node_modules']
+		  				}
+	  				}
+            	],
 			},
-			{
-				test : /\.js$/,
-				exclude : /(node_modules|bower_components)/,
-				use : {
-					loader : 'babel-loader',
-					options : {
-						presets : ['es2015', 'env']
-					}
-				},
-			}
 		]
 	},
 	plugins: [
@@ -35,8 +33,8 @@ var config = {
 			host: 'localhost',
 			port: 3000,
 			files : ['./public/css/*.css', './views/*.hbs', './views/**/*', './*.html', './routes/*.js', './server.js' , './public/js/*.js'],
-			// tunnel : true,
-			proxy : 'http://localhost:8001/'
+			tunnel : true,
+			proxy : 'http://localhost:8080/'
     	}),
 	],
 	node : {

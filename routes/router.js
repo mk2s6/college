@@ -42,7 +42,7 @@ router.get('/contact/hi', function (req, res, next) {
 
 router.get('/login', function (req, res, next) {
 	// console.log(req.session.message)
-	res.render('login.hbs', {title: 'Sign In form'})
+	res.render('login.hbs', {title: 'Log In form'})
 });	
 
 router.post('/login', function(req, res, next) {
@@ -50,15 +50,16 @@ router.post('/login', function(req, res, next) {
 		if (err) return next(err);
 		// console.log(user)
 		if (!user) { 
-			console.log(info);
+			// console.log(info);
 			req.session.message = info;
       		return res.redirect('/login'); 
       	}
-
-		req.logIn(user, function(err) {
+      	// console.log(user);
+		req.logIn(user.user, function(err) {
 			if (err) return next(err);
-			console.log(user)
-			return res.redirect('/profile/users/' + user);
+			// // console.log(user)
+			// req.locals.type = user.type;
+			return res.redirect('/profile/users/' + user.user);
 	});
 })(req, res, next);
 });
@@ -77,22 +78,27 @@ router.post('/register', function(req, res, next) {
 	const username = req.body.username;
 	const dob = req.body.dob;
 	const password = req.body.password;
+	const type = req.body.type;
 
 	const db = require('../dbconfig.js')
 
 	bcrypt.hash(password, saltRounds, function(err, hash) {
-		query = db.query('INSERT INTO users (username, dob, password) VALUES (?, ?, ?)',[username, dob, hash], function (err, result, fields) {
+		query = db.query('INSERT INTO users (username, dob, password, type) VALUES (?, ?, ?, ?)',[username, dob, hash, type], function (err, result, fields) {
 			if (err) {
-				res.send(err.Errors);
-				console.log(err);
+				// console.log(err);
+				if (err.code === "ER_DUP_ENTRY") res.send({
+					redirectTo: '/login',
+					msg : 'User Already Exists'
+				});
+				var str = JSON.stringify(err);
+				console.log(str)
+				// if (err === ) {}
 			} else {
 
 					db.query('SELECT * FROM users ORDER BY ID DESC LIMIT 1', function(err, results, fields) {
 					if (err) throw err;
 
 					const userId = results[0].username;
-					// console.log(results[0])
-					// console.log("user id : " + userId)
 					req.login(userId, function (err) {
 						if (err) console.log(err);
 						res.send({
@@ -110,21 +116,28 @@ router.post('/register', function(req, res, next) {
 router.get('/profile/users/:id', authenticationMiddleware() ,function (req, res, next) {
 	const db = require('../dbconfig.js');
 	let username = req.params.id;
+	let table = 'student';
+
 	var user;
 	// console.log(username)
-	var q  = 	"SELECT roll_no, name, date_format(DOB,'%d-%b-%Y') AS DOB, gender, dept_name AS dept, email, phone, year_info AS year " +
-				" FROM students, departments, year " +
-				" WHERE roll_no = '"+ username +"' AND students.dept_id = departments.dept_id AND students.year_id = year.year_id;"
+	var q  = 	"SELECT roll_no, firstName, lastName, date_format(DOB,'%d-%b-%Y') AS DOB, gender, dept_name AS dept, email, phone, year_info AS year " +
+				" FROM " + table + ", departments, year " +
+				" WHERE roll_no = '"+ username +"' AND " + table + ".dept_id = departments.dept_id AND "+table+".year_id = year.year_id;"
 	var query = db.query(q , function (err, result, fields ) {
 		if(err) throw  err;
 
+		if (result.length === 0) {
+			res.render('./profile.hbs', {title : "Profile does not exist Please register!" });
+		}
+
 		var str = JSON.stringify(result);
 		user = JSON.parse(str)[0];
-		// console.log(result);
+		// console.log(user)
 		res.render('./profile.hbs' , { 
 			title : "Profile" , 
 			roll_no : user.roll_no, 
-			name : user.name,
+			firstName : user.firstName,
+			lastName : user.lastName,
 			dob : user.DOB,
 			gender : user.gender,
 			dept : user.dept,
@@ -132,12 +145,19 @@ router.get('/profile/users/:id', authenticationMiddleware() ,function (req, res,
 			phone : user.phone,
 			year : user.year
 			});
-	
+
 	});
 
 });
 
 
+// router.put('/profile/:table/:id', function (req, res, next) {
+// 	const db = require('../dbconfig.js')
+// 	var id = req.params.id:
+// 	var table = req.params.table;
+
+// 	var q = "UPDATE " + table 
+// });
 
 
 router.get('/confirm/:type/:id/:dob', function (req, res) {
@@ -145,7 +165,8 @@ router.get('/confirm/:type/:id/:dob', function (req, res) {
 	var type = req.params.type, 
 		id = req.params.id,
 		dob = req.params.dob;
-	var q = 'SELECT name, dept_name, email, phone  FROM ' + type + ' ,departments WHERE roll_no = \'' + id + '\' AND DOB = \'' + dob + '\' AND ' + type +'.dept_id = departments.dept_id';
+
+	var q = 'SELECT firstName, lastName, dept_name, email, phone  FROM ' + type + ' , departments WHERE roll_no = \'' + id + '\' AND DOB = \'' + dob + '\' AND ' + type +'.dept_id = departments.dept_id';
 	query = db.query(q, function (err, result, fields) {
 		if (err) {
 			console.log(err);

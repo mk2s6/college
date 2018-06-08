@@ -6,6 +6,10 @@ var connection = mysql.createConnection({
   database : process.env.DB_NAME
 })
 
-connection.connect()
+connection.connect(function (err) {
+	if (err) {
+		console.log("err")
+	}
+});
 
 module.exports = connection;

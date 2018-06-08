@@ -6,15 +6,32 @@
 			<h1>{{title}}</h1>
 			<div id="loginContent">	
 				<form method="POST" action="/login">
-					<label for="username"></label>Enter id : <input type="text" name="username">
-	                <label for="password"> Enter PassWord : </label><input type="password" name="password" autocomplete="off"> 
-			         
-			          <button type="submit" id="submitBtn">Login</button>
+					{{!-- <label for="username"></label>Enter id : <input type="text" name="username"> --}}
+			        <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+                        <input class="mdc-text-field__input" type="text" name="username" size="24" maxlength="10">
+                        <label for="username" class="mdc-floating-label">Enter Id</label>
+                        <div class="mdc-line-ripple"></div> 
+                    </div>
+		
+                    <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+                        <input class="mdc-text-field__input" type="password" autocomplete="off" name='password' size="24">
+                        <label for="password" class="mdc-floating-label">Enter Password</label>
+                        <div class="mdc-line-ripple"></div> 
+                    </div>
+	                {{!-- <label for="password"> Enter Password : </label><input type="password" name="password" autocomplete="off">  --}}
+			        <button type="submit" id="submitBtn" class="mdc-button mdc-button--raised">
+			        	<i class="material-icons mdc-button__icon">launch</i>
+			        Login
+			    	</button> 
 				</form>
 			</div>
 			
 		</div>
 	</div>
+
+	    <script type="text/javascript">
+       		window.mdc.autoInit();
+        </script>
 
 
 {{> footer-end }}

@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
+var type;
 
 const index = require('./routes/router');
 const hbs = require('express-hbs');
@@ -26,6 +27,8 @@ var bodyParser = require('body-parser');
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/src'));
+app.use(express.static(__dirname + '/dist'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -67,11 +70,27 @@ passport.authenticate('local');
 app.use(function(req, res, next) {
 	res.locals.isAuthenticated = req.isAuthenticated();
 	res.locals.username = req.user;
-	// console.log(req.user)
 	next();
 });
 
 app.use(index);
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error' , {title : "Some internal Error please try again later or contact administrator"});
+});
+
 
 passport.use(new LocalStrategy(
  	function(username, password, done) {
@@ -79,7 +98,9 @@ passport.use(new LocalStrategy(
 
 		console.log(username)
 	   	query = db.query('SELECT * FROM users WHERE username = ? ', [username], function(err, results, fields) {
-	   		if (err) throw err;
+	   		if (err) {
+	   			console.log('error')
+	   			throw err};
 
 	   		if (results.length === 0 ) {
 	   			done(null, false , "Invalid Username");
@@ -90,7 +111,8 @@ passport.use(new LocalStrategy(
 		   		bcrypt.compare(password, hash, function (err, result) {
 		   			if (result) {
 		   				// console.log(result[0])
-		   				return done(null, results[0].username);
+		   				type = results[0].type;
+		   				return done(null, {user : results[0].username, type : results[0].type });
 		   			} else {
 		   				return done(null, false, "Invalid password");
 		   			}
@@ -100,3 +122,4 @@ passport.use(new LocalStrategy(
 	   	});
     }
 ));
+

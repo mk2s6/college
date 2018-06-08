@@ -3,19 +3,186 @@
 	<div id="main_body">
 		<div class="main_content">
 			<h1>{{title}}</h1>
-			<div id="profileContent">
-				<p id="roll_no"> Roll No : {{roll_no}}</p>
-				<p id="name"> Name : {{name}}</p>
-				<p id="dob"> DOB : {{dob}}</p>
-				<p id="gender"> gender : {{gender}}</p>
-				<p id="dept"> Department : {{dept}}</p>
-				<p id="year"> Year : {{year}}</p>
-				<p id="email"> Email : {{email}}</p>
-				<p id="phone"> phone : {{phone}}</p>
 
+			<div id="profileContent">
+				<table id="profileTable">
+					<tbody>
+						<tr>
+							<td> Roll No </td>
+							<td> : </td>
+							<td> 
+								<span id="roll_no" class="editor-edit"> {{roll_no}} </span></td>
+							<td>
+								<button class="edit mdc-button mdc-button--unelevated" disabled> EDIT </button>
+							</td>
+						</tr>
+						<tr>
+							<td>First Name </td>
+							<td> : </td>
+							<td> 
+								<span class="editor-edit">{{firstName}}</span> 
+								<div class="mdc-text-field editor-noedit" data-mdc-auto-init="MDCTextField">
+			                        <input class="mdc-text-field__input" type="text" data-edit="firstName"  id="firstName" autocomplete="off">
+			                        <label for="firstName" class="mdc-floating-label">Enter First Name</label>
+			                        <div class="mdc-line-ripple"></div> 
+			                    </div>
+							</td>
+							<td>
+								<button class="mdc-button mdc-button--unelevated editor editable-edit edit" data-data="firstName"> EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit save"> SAVE EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit cancel"> CANCEL </button>
+							</td>
+						</tr>
+						<tr>
+							<td> Last Name </td>
+							<td> : </td>
+							<td> 
+								<span class="editor-edit">{{lastName}}</span> 
+								<div class="mdc-text-field editor-noedit" data-mdc-auto-init="MDCTextField">
+			                        <input class="mdc-text-field__input" type="text" data-edit="lastName" name="first-Name" autocomplete="off">
+			                        <label for="lastName" class="mdc-floating-label">Enter Last Name</label>
+			                        <div class="mdc-line-ripple"></div> 
+			                    </div>
+							</td>
+							<td>
+								<button class="mdc-button mdc-button--unelevated editor edit editable-edit" data-data="lastName"> EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit save"> SAVE EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit cancel"> CANCEL </button>
+							</td>
+						</tr>
+						<tr>
+							<td>Date of Birth</td>
+							<td> : </td>
+							<td> 
+								<span class="editor-edit">{{dob}}</span>
+	                            <div class='mdc-text-field editor-noedit' data-mdc-auto-init='MDCTextField'>
+	                                <input class='mdc-text-field__input' type='text' id='dob' required readonly>
+	                                <label for='dob' class='mdc-floating-label'>Enter DOB</label>
+	                                <div class="mdc-line-ripple"></div> 
+	                            </div>								
+							</td>
+							<td>
+								<button class="mdc-button mdc-button--unelevated editor edit editable-edit" data-data="dob"> EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit save"> SAVE EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit cancel"> CANCEL </button>
+							</td>
+
+						</tr>
+						<tr>
+							<td> Gender </td>
+							<td> : </td>
+							<td> 
+								<span class="editor-edit">{{gender}}</span> 
+								<div class="mdc-select editor-noedit">
+									<select class="mdc-select__native-control" id="gender" data-edit="gender">
+										<option value="" disabled selected></option>
+										<option value="Male">
+										  Male
+										</option>
+										<option value="FeMale">
+										  FeMale
+										</option>
+									</select>
+									<label class="mdc-floating-label">Gender</label>
+									{{!-- <div class="mdc-line-ripple"></div> --}}
+								</div>
+							</td>
+							<td>
+								<button class="mdc-button mdc-button--unelevated editor edit editable-edit" data-data="gender"> EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit save"> SAVE EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit cancel"> CANCEL </button>
+							</td>
+
+						</tr>
+						<tr>
+							<td> Department </td>
+							<td> : </td>
+							<td> 
+								<span id="dept" class="editor-edit">{{dept}}</span> 
+
+							</td>
+							<td>
+								<button class="edit mdc-button mdc-button--unelevated" disabled> EDIT </button>
+							</td>
+
+						</tr>
+						<tr>
+							<td> Year </td>
+							<td> : </td>
+							<td> 
+								<span id="year" class="editor-edit"> {{year}} </span>
+							</td>
+							<td>
+								<button class="edit mdc-button mdc-button--unelevated" disabled> EDIT </button>
+							</td>
+
+						</tr>
+						<tr>
+							<td> Email </td>
+							<td> : </td>
+							<td> 
+								<span class="editor-edit"> {{email}} </span>
+								<div class="mdc-text-field editor-noedit" data-mdc-auto-init="MDCTextField">
+			                        <input class="mdc-text-field__input" type="email" data-edit="firstName" id="email" name="first-Name" autocomplete="off">
+			                        <label for="first-Name" class="mdc-floating-label">Enter Your Email</label>
+			                        <div class="mdc-line-ripple"></div> 
+			                    </div>
+							</td>
+							<td>
+								<button class="mdc-button mdc-button--unelevated editor edit editable-edit" data-data="email"> EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit save"> SAVE EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit cancel"> CANCEL </button>
+							</td>
+						</tr>
+						<tr>
+							<td> Phone </td>
+							<td> : </td>
+							<td> 
+								<span class="editor-edit"> {{phone}} </span>
+								<div class="mdc-text-field editor-noedit" data-mdc-auto-init="MDCTextField">
+			                        <input class="mdc-text-field__input" type="text" id="phone" data-edit="phone" autocomplete="off">
+			                        <label for="phone" class="mdc-floating-label">Enter your Phone Number</label>
+			                        <div class="mdc-line-ripple"></div> 
+			                    </div>
+							</td>
+							<td>
+								<button class="mdc-button mdc-button--unelevated editor edit editable-edit" data-data="phone"> EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit save"> SAVE EDIT </button>
+								<button class="mdc-button mdc-button--unelevated editable-no-edit cancel"> CANCEL </button>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td>
+								<div class="mdc-shape-container my-shape-container">
+								  	<button id="edit-btn" class="mdc-button mdc-button--raised mdc-ripple-upgraded no-edit"> EDIT </button>
+								  	<div class="mdc-shape-container__corner mdc-shape-container__corner--top-left"></div>
+								  	<div class=" mdc-shape-container__corner mdc-shape-container__corner--bottom-right"></div>
+									<button id="cancel-btn" class="edit mdc-button mdc-button--unelevated"> CANCEL </button>
+								</div>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
 			</div>
 		</div>
 	</div>
-	<!--  <script type="text/javascript" src="js/profile.js"></script> -->
+	<script src="assets/datepicker.min.js"></script>
+	<script type="text/javascript" src="js/profile.js"></script>
+	<script>
+		$('#dob').datepicker({
+            format : 'yyyy-mm-dd'
+        });
+        $('#dob').on('change', function(event) {
+            event.preventDefault();
+            if($(this).val() !== '') $(this).siblings('label').addClass('mdc-floating-label--float-above');
+            else $(this).siblings('label').removeClass('mdc-floating-label--float-above')
+        }).blur(function(event) {
+             if($(this).val() == '') $(this).parent().addClass('mdc-text-field--invalid');
+             else $(this).parent().removeClass('mdc-text-field--invalid')
+        });
+	    const select = new mdc.select.MDCSelect(document.querySelector('.mdc-select'));
+	</script>
 
 {{> footer-end }}

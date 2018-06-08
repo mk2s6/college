@@ -3,67 +3,89 @@
 	<div id="main_body">
 		<div class="main_content">
 			<h1>{{title}}</h1>
-			<div class="selection">
+			<div class="selection" id="registerSelect">
                 <ul>
                     <li>
-                        <label for="facultyRegister">Faculty Registration</label><input type="radio" data-frmName="facultyForm" name="register-type" id="facultyRegister">
+
+                        <div class="mdc-form-field">
+                            <div class="mdc-radio">
+                                <input class="mdc-radio__native-control" type="radio" data-frmName="faculty" name="register-type" id="facultyRegister">
+                                <div class="mdc-radio__background">
+                                  <div class="mdc-radio__outer-circle"></div>
+                                  <div class="mdc-radio__inner-circle"></div>
+                                </div>
+                         </div>
+                            <label for="facultyRegister">Faculty Registration</label>
+                        </div>
                     </li>
                     <li>
-                        <label for="studentRegister">Student Registration</label><input type="radio" data-frmName="studentForm" name="register-type" id="studentRegister">
+
+                        <div class="mdc-form-field">
+                            <div class="mdc-radio">
+                                <input class="mdc-radio__native-control" type="radio" data-frmName="student" name="register-type" id="studentRegister">
+                                <div class="mdc-radio__background">
+                                  <div class="mdc-radio__outer-circle"></div>
+                                  <div class="mdc-radio__inner-circle"></div>
+                                </div>
+                            </div>
+                            <label for="studentRegister">Student Registration</label>
+                        </div>
                     </li>
                 </ul>
             </div>
-            <div>
-                <div id="facultyForm">
-                    <form action="" class="form-container-register">
-                            <label for="EmpNo">Enter Employee Number : <input type="text" id="EmpNo" maxlength="10"> </label>
-                            <label for="dobe">
-                                Enter Date of Birth(As per records) : <input type="date" id="dobe" class="dob"> 
-                            </label>
-                        <button type="button" class="check" data-type="EmpNo" value="faculty">Confirm</button>
-                    </form>
-                </div>
-                <div id="studentForm">
-                    <form action="" class="form-container-register">
-                            <label for="RollNo">
-                                Enter Student Roll Number : <input type="text" id="RollNo" maxlength="10"> 
-                            </label>
-                            <label for="dobs">
-                                Enter Date of Birth(As per records) : <input type="date" id="dobs" class="dob"> 
-                            </label>
-                        <button type="button" class="check" data-type="RollNo" value="students">Confirm</button>
-                    </form>
-                </div>
+
+            <div id="selectedForm">
+                
             </div>
-                <div id="confirmation">
-                    
-                </div>
-          
+ 
+            <div id='confirmation'>
+                
+            </div>
+      
 		        <div id="pwd">
 		            <form id="passform">
-		                    <label for="pass">
-		                        Enter PassWord : <input type="password" data-type="pwd-info1" id="pass" autocomplete="off"> 
-		                    </label>
-		                    
-		                <div id="pwd-info1">
-		                    <p id="smallCh" class="invalid">Password Must contain one small letter</p>
-		                    <p id="capital" class="invalid">Password Must contain one capital letter</p>
-		                    <p id="number" class="invalid">Password Must contain one number</p>
-		                    <P id="length" class="invalid">Password Must be Atleast 8 charecters</P>
-		                </div>
-		                    <label for="rePass">
-		                        ReEnter Password : <input type="password" data-type="pwd-info2" id="rePass" autocomplete="off"> 
-		                    </label>
-		                <div id="pwd-info2">
-		                    <p id="matches" class="invalid">Entered Passwords does not match</p>
-		                </div>
-		                <button type="submit" id="submitBtn" disabled="true">Register</button>
+                        <div class="inline-div">
+                            <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+                                <input class="mdc-text-field__input" type="password" autocomplete="off" name='password' size="24" data-type="pwd-info1" id="pass" >
+                                <label for="password" class="mdc-floating-label">Enter Password</label>
+                                <div class="mdc-line-ripple"></div> 
+                            </div>
+                                
+                        </div>
+                        <div id="pwd-info1">
+                            <p id="smallCh" class="invalid">Password Must contain one small letter</p>
+                            <p id="capital" class="invalid">Password Must contain one capital letter</p>
+                            <p id="number" class="invalid">Password Must contain one number</p>
+                            <P id="length" class="invalid">Password Must be Atleast 8 charecters</P>
+                        </div>
+
+                      <div class="inline-div">
+                          <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+                              <input class="mdc-text-field__input" type="password" autocomplete="off" name='password' size="24" data-type="pwd-info2" id="rePass" >
+                              <label for="password" class="mdc-floating-label">Re-Enter Password</label>
+                              <div class="mdc-line-ripple"></div> 
+                          </div>
+
+                      </div>
+                      <div id="pwd-info2">
+                          <p id="matches" class="invalid">Entered Passwords does not match</p>
+                      </div>
+		              
+                        <button type="submit" id="submitBtn" class="mdc-button mdc-button--raised" disabled="true">
+                            <i class="material-icons mdc-button__icon">how_to_reg</i>
+                            Register
+                        </button>
 		            </form>
 		        </div>
 		    </div>
 		</div>
-	</div>
-    
+    </div>
+
+    <script src="assets/datepicker.min.js"></script>
+    <script>
+        window.mdc.autoInit();
+    </script>
     <script src="js/register.js"></script>
+
 
 {{> footer-end }}
