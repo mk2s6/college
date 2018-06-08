@@ -33,7 +33,7 @@ var config = {
 			host: 'localhost',
 			port: 3000,
 			files : ['./public/css/*.css', './views/*.hbs', './views/**/*', './*.html', './routes/*.js', './server.js' , './public/js/*.js'],
-			tunnel : true,
+			// tunnel : true,
 			proxy : 'http://localhost:8080/'
     	}),
 	],
